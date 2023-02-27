@@ -11,8 +11,8 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  onSubmit = newInput => {
-    this.setState({ input: newInput });
+  onSubmit = userInput => {
+    this.setState({ input: userInput });
   };
 
   render() {
