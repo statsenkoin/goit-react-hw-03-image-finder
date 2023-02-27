@@ -11,10 +11,14 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
+  onSubmit = newInput => {
+    this.setState({ input: newInput });
+  };
+
   render() {
     return (
       <div>
-        <Searchbar></Searchbar>
+        <Searchbar onSubmit={this.onSubmit}></Searchbar>
       </div>
     );
   }

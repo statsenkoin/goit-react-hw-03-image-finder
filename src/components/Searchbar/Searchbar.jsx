@@ -9,10 +9,16 @@ import {
 } from './Searchbar.styled';
 import { BiSearchAlt } from 'react-icons/bi';
 
-export const Searchbar = () => {
+export const Searchbar = ({ onSubmit }) => {
   return (
     <Header>
-      <Formik initialValues={{ input: '' }} onSubmit={(values, actions) => {}}>
+      <Formik
+        initialValues={{ input: '' }}
+        onSubmit={(values, { resetForm }) => {
+          onSubmit(values.input);
+          resetForm();
+        }}
+      >
         <SearchForm>
           <SearchButton type="submit">
             <BiSearchAlt />
