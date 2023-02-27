@@ -1,5 +1,23 @@
+import React, { Component } from 'react';
+
 import { Searchbar } from 'components';
 
-export const App = () => {
-  return <Searchbar></Searchbar>;
-};
+class App extends Component {
+  state = {
+    input: '',
+  };
+
+  componentDidMount() {}
+
+  componentDidUpdate(prevProps, prevState) {}
+
+  render() {
+    return (
+      <div>
+        <Searchbar></Searchbar>
+      </div>
+    );
+  }
+}
+
+export { App };
