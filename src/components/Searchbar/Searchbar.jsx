@@ -1,42 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Formik, Form, Field } from 'formik';
+// import PropTypes from 'prop-types';
+import { Formik } from 'formik';
+import {
+  Header,
+  SearchForm,
+  SearchButton,
+  SearchInput,
+} from './Searchbar.styled';
+import { BiSearchAlt } from 'react-icons/bi';
 
 export const Searchbar = () => {
   return (
-    <header>
+    <Header>
       <Formik initialValues={{ input: '' }} onSubmit={(values, actions) => {}}>
-        <Form>
-          <button type="submit">
-            <span>Search</span>
-          </button>
-          <Field
+        <SearchForm>
+          <SearchButton type="submit">
+            <BiSearchAlt />
+          </SearchButton>
+          <SearchInput
             type="text"
             name="input"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-          ></Field>
-        </Form>
+          ></SearchInput>
+        </SearchForm>
       </Formik>
-    </header>
+    </Header>
   );
-
-  //   return (
-  //     <header className="searchbar">
-  //       <form className="form">
-  //         <button type="submit" className="button">
-  //           <span className="button-label">Search</span>
-  //         </button>
-
-  //         <input
-  //           className="input"
-  //           type="text"
-  //           autoComplete="off"
-  //           autoFocus
-  //           placeholder="Search images and photos"
-  //         />
-  //       </form>
-  //     </header>
-  //   );
 };
