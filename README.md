@@ -4,3 +4,4 @@
 4. https://styled-components.com/docs/basics#getting-started
 5. https://github.com/ai/nanoid#readme
 6. https://www.npmjs.com/package/yup
+7. https://react-icons.github.io/react-icons
