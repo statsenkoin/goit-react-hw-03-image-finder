@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import {
   Header,
@@ -9,13 +9,13 @@ import {
 } from './Searchbar.styled';
 import { BiSearchAlt } from 'react-icons/bi';
 
-export const Searchbar = ({ onSubmit }) => {
+export const Searchbar = ({ onSearchInput }) => {
   return (
     <Header>
       <Formik
         initialValues={{ input: '' }}
         onSubmit={({ input }, { resetForm }) => {
-          onSubmit(input);
+          onSearchInput(input);
           resetForm();
         }}
       >
@@ -34,4 +34,8 @@ export const Searchbar = ({ onSubmit }) => {
       </Formik>
     </Header>
   );
+};
+
+Searchbar.propTypes = {
+  onSearchInput: PropTypes.func.isRequired,
 };

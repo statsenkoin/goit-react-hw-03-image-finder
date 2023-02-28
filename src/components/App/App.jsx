@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Layout } from './App.styled';
 import { Searchbar } from 'components';
 
 class App extends Component {
@@ -11,15 +12,15 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  onSubmit = userInput => {
+  onSearchInput = userInput => {
     this.setState({ input: userInput });
   };
 
   render() {
     return (
-      <div>
-        <Searchbar onSubmit={this.onSubmit}></Searchbar>
-      </div>
+      <Layout>
+        <Searchbar onSearchInput={this.onSearchInput}></Searchbar>
+      </Layout>
     );
   }
 }
