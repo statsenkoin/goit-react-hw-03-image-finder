@@ -9,13 +9,18 @@ import {
 } from './Searchbar.styled';
 import { BiSearchAlt } from 'react-icons/bi';
 
-export const Searchbar = ({ onSearchInput }) => {
+export const Searchbar = ({ handleSearchInput }) => {
   return (
     <Header>
       <Formik
         initialValues={{ input: '' }}
         onSubmit={({ input }, { resetForm }) => {
-          onSearchInput(input);
+          if (input.trim() === '') {
+            // TODO React-toast
+            alert('Enter search query');
+            return;
+          }
+          handleSearchInput(input);
           resetForm();
         }}
       >
@@ -37,5 +42,5 @@ export const Searchbar = ({ onSearchInput }) => {
 };
 
 Searchbar.propTypes = {
-  onSearchInput: PropTypes.func.isRequired,
+  handleSearchInput: PropTypes.func.isRequired,
 };
