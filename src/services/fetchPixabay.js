@@ -19,12 +19,14 @@ const params = new URLSearchParams({
  * response.data = {total: 1159760, totalHits: 500, hits: Array(12)}
  */
 export default async function fetchPixabay(query, page) {
-  return await axios
-    .get(`/?q=${query}&page=${page}`, {
+  try {
+    const response = await axios.get(`/?q=${query}&page=${page}`, {
       params,
-    })
-    .then(response => response.data.hits)
-    .catch(error => console.error(error.message));
+    });
+    return response.data.hits;
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 //  .get(`{BASE_URL}?q=${query}&page=${page}`
