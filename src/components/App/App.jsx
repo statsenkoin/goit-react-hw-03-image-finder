@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-
 import { Layout } from './App.styled';
-import { Searchbar } from 'components';
+import { Searchbar, ImageGallery } from 'components';
 
 class App extends Component {
   state = {
-    input: '',
+    userInput: '',
+    loading: false,
   };
 
-  componentDidMount() {}
+  async componentDidMount() {
+    // this.setState({ loading: true });
+    // const pictureSet = await fetchPixabay(
+    //   this.state.userInput,
+    //   this.state.page
+    // );
+    // console.log('pictureSet :>> ', pictureSet);
+    // this.setState({ gallery: pictureSet });
+    // this.setState({ loading: false });
+  }
 
   componentDidUpdate(prevProps, prevState) {}
 
-  onSearchInput = userInput => {
-    this.setState({ input: userInput });
+  handleSearchInput = userInput => {
+    this.setState({ userInput });
   };
 
   render() {
+    const { userInput, loading } = this.state;
     return (
       <Layout>
-        <Searchbar onSearchInput={this.onSearchInput}></Searchbar>
+        <Searchbar handleSearchInput={this.handleSearchInput}></Searchbar>
+        {loading && <p>Loading...</p>}
+        <ImageGallery userInput={userInput}></ImageGallery>
       </Layout>
     );
   }
