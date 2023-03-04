@@ -3,7 +3,8 @@
 html {
   box-sizing: border-box;
   width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  scroll-behavior: smooth;
 }
 
 *,
@@ -24,7 +25,7 @@ body {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 
