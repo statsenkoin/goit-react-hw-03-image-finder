@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from './App.styled';
-import { Searchbar, ImageGallery } from 'components';
+import { Searchbar, ImageGallery, Tostify } from 'components';
 
 class App extends Component {
   state = {
@@ -18,6 +18,7 @@ class App extends Component {
       <Layout>
         <Searchbar handleSearchInput={this.handleSearchInput}></Searchbar>
         <ImageGallery input={input}></ImageGallery>
+        <Tostify />
       </Layout>
     );
   }
