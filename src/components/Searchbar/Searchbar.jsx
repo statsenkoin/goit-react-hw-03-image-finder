@@ -8,6 +8,7 @@ import {
   SearchInput,
 } from './Searchbar.styled';
 import { BiSearchAlt } from 'react-icons/bi';
+import { toast } from 'react-toastify';
 
 export const Searchbar = ({ handleSearchInput }) => {
   return (
@@ -16,8 +17,9 @@ export const Searchbar = ({ handleSearchInput }) => {
         initialValues={{ input: '' }}
         onSubmit={({ input }, { resetForm }) => {
           if (input.trim() === '') {
-            // TODO React-toast
-            alert('Enter search query');
+            toast.error(
+              'The search field must be filled. Try to enter something.'
+            );
             return;
           }
           handleSearchInput(input);
