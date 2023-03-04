@@ -12,6 +12,7 @@ export const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 9999;
 `;
+
 export const Content = styled.div`
   position: absolute;
   top: 50%;
