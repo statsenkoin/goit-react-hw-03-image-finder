@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-import { Backdrop, Content } from './Modal.styled';
+import PropTypes from 'prop-types';
+
+import { Backdrop, Content, ButtonClose } from './Modal.styled';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -25,12 +28,25 @@ export class Modal extends Component {
     }
   };
 
+  handleOnCloseButton = () => {
+    this.props.onClose();
+  };
+
   render() {
     return createPortal(
       <Backdrop onClick={this.handleBackdropClick}>
-        <Content>{this.props.children}</Content>
+        <Content>
+          <ButtonClose type="button" onClick={this.handleOnCloseButton}>
+            <AiFillCloseCircle />
+          </ButtonClose>
+          {this.props.children}
+        </Content>
       </Backdrop>,
       modalRoot
     );
   }
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
