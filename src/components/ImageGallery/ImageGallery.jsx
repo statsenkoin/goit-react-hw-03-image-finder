@@ -6,8 +6,6 @@ import { Gallery } from './ImageGallery.styled';
 import { ImageGalleryItem, Modal, LoadMoreButton, Loader } from 'components';
 import { toast } from 'react-toastify';
 
-const { PER_PAGE } = pixabayConstants;
-
 export class ImageGallery extends Component {
   state = {
     page: 1,
@@ -66,6 +64,7 @@ export class ImageGallery extends Component {
   };
 
   calculateTotalPages = total => {
+    const { PER_PAGE } = pixabayConstants;
     return Math.ceil(total / PER_PAGE);
   };
 
