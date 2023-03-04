@@ -4,34 +4,20 @@ import { Searchbar, ImageGallery } from 'components';
 
 class App extends Component {
   state = {
-    userInput: '',
-    loading: false,
+    input: '',
   };
 
-  async componentDidMount() {
-    // this.setState({ loading: true });
-    // const pictureSet = await fetchPixabay(
-    //   this.state.userInput,
-    //   this.state.page
-    // );
-    // console.log('pictureSet :>> ', pictureSet);
-    // this.setState({ gallery: pictureSet });
-    // this.setState({ loading: false });
-  }
-
-  componentDidUpdate(prevProps, prevState) {}
-
   handleSearchInput = userInput => {
-    this.setState({ userInput });
+    const { input } = this.state;
+    if (input !== userInput) this.setState({ input: userInput });
   };
 
   render() {
-    const { userInput, loading } = this.state;
+    const { input } = this.state;
     return (
       <Layout>
         <Searchbar handleSearchInput={this.handleSearchInput}></Searchbar>
-        {loading && <p>Loading...</p>}
-        <ImageGallery userInput={userInput}></ImageGallery>
+        <ImageGallery input={input}></ImageGallery>
       </Layout>
     );
   }
