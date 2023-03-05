@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import fetchPixabay from 'services/fetchPixabay';
 import { pixabayConstants } from 'constants';
 import { Gallery } from './ImageGallery.styled';
-import { ImageGalleryItem, Modal, LoadMoreButton, Loader } from 'components';
+import { ImageGalleryItem, LoadMoreButton, Loader } from 'components';
 import { toast } from 'react-toastify';
 
 export class ImageGallery extends Component {
@@ -13,8 +13,6 @@ export class ImageGallery extends Component {
     error: null,
     isLastPage: true,
     isLoading: false,
-    isModalShown: false,
-    choosenImage: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -72,40 +70,21 @@ export class ImageGallery extends Component {
     this.setState(({ page }) => ({ page: page + 1 }));
   };
 
-  toggleModal = () => {
-    this.setState(({ isModalShown }) => ({
-      isModalShown: !isModalShown,
-    }));
-  };
-
-  onLargeImageShow = e => {
-    if (e.target.nodeName === 'IMG') {
-      const image = this.state.gallery.find(
-        item => item.id.toString() === e.target.id
-      );
-      this.setState({ choosenImage: image });
-      this.toggleModal();
-    }
-  };
-
   render() {
-    const { gallery, isLoading, isModalShown, choosenImage, isLastPage } =
-      this.state;
+    const { gallery, isLoading, isLastPage } = this.state;
     return (
       <>
         {isLoading && <Loader />}
         {gallery && (
           <>
-            <Gallery onClick={this.onLargeImageShow}>
-              <ImageGalleryItem gallery={gallery}></ImageGalleryItem>
+            <Gallery>
+              <ImageGalleryItem
+                gallery={gallery}
+                onSelectModalImage={this.props.onSelectModalImage}
+              ></ImageGalleryItem>
             </Gallery>
             {!isLastPage && <LoadMoreButton onClick={this.onLoadMoreClick} />}
           </>
-        )}
-        {isModalShown && (
-          <Modal onClose={this.toggleModal}>
-            <img src={choosenImage.largeImageURL} alt={choosenImage.tags} />
-          </Modal>
         )}
       </>
     );

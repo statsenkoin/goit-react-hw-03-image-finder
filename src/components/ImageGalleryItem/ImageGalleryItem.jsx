@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GalleryItem, GalleryItemImage } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ gallery }) => {
-  return gallery.map(({ id, webformatURL, tags }) => (
+export const ImageGalleryItem = ({ gallery, onSelectModalImage }) => {
+  return gallery.map(({ id, webformatURL, largeImageURL, tags }) => (
     <GalleryItem key={id}>
-      <GalleryItemImage id={id} src={webformatURL} alt={tags} />
+      <GalleryItemImage
+        id={id}
+        src={webformatURL}
+        alt={tags}
+        onClick={() => onSelectModalImage(largeImageURL, tags)}
+      />
     </GalleryItem>
   ));
 };
