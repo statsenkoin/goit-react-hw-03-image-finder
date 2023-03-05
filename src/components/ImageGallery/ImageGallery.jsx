@@ -3,16 +3,22 @@ import PropTypes from 'prop-types';
 import fetchPixabay from 'services/fetchPixabay';
 import { pixabayConstants } from 'constants';
 import { Gallery } from './ImageGallery.styled';
-import { ImageGalleryItem, LoadMoreButton, Loader } from 'components';
-import { toast } from 'react-toastify';
+import {
+  ImageGalleryItem,
+  LoadMoreButton,
+  Loader,
+  WarningPage,
+} from 'components';
+// import { toast } from 'react-toastify';
 
 export class ImageGallery extends Component {
   state = {
     page: 1,
-    gallery: null,
+    gallery: [],
     error: null,
     isLastPage: true,
     isLoading: false,
+    isEmpty: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,19 +27,25 @@ export class ImageGallery extends Component {
     const { input: prevInput } = prevProps;
     const { page: prevPage, gallery: prevGallery } = prevState;
 
-    if (prevInput !== input) {
-      this.setState({ page: 1 });
-    }
+    if (prevInput !== input) this.resetState();
 
-    if (prevInput !== input || prevPage !== page) {
-      this.getImageSet();
-    }
+    if (prevInput !== input || prevPage !== page) this.getImageSet();
 
-    if (gallery !== prevGallery && page > 1) window.scrollBy(0, 450);
+    if (gallery !== prevGallery && page > 1)
+      window.scrollBy(0, window.innerHeight / 2);
   }
 
+  resetState = () => {
+    this.setState({
+      page: 1,
+      gallery: [],
+      isLastPage: true,
+      isLoading: false,
+    });
+  };
+
   getImageSet = async () => {
-    const { page, gallery } = this.state;
+    const { page } = this.state;
     const { input } = this.props;
 
     this.setState({ isLoading: true });
@@ -41,21 +53,22 @@ export class ImageGallery extends Component {
       // data = {total: 1159760, totalHits: 500, hits: Array(12)}
       const { hits, total } = await fetchPixabay(input, page);
 
-      if (!hits.length) {
-        this.setState({ gallery: null });
-        toast.error('Not valid search query. Try another request.');
-        return;
+      if (hits.length === 0) {
+        // return toast.error('Not valid search query. Try another request.');
+        return this.setState({ isEmpty: true });
       }
+
       const pages = this.calculateTotalPages(total);
-      this.setState({
-        gallery:
-          gallery !== null && page > 1 ? [...gallery, ...hits] : [...hits],
+      this.setState(prev => ({
+        gallery: [...prev.gallery, ...hits],
         isLastPage: page < pages ? false : true,
-      });
+        error: null,
+        isEmpty: false,
+      }));
     } catch (error) {
       console.log('error :>> ', error);
-      this.setState({ error: error.message, gallery: null });
-      toast.error('Something went wrong. Try again later.');
+      this.setState({ error: error.message });
+      // toast.error('Something went wrong. Try again later.');
     } finally {
       this.setState({ isLoading: false });
     }
@@ -71,7 +84,7 @@ export class ImageGallery extends Component {
   };
 
   render() {
-    const { gallery, isLoading, isLastPage } = this.state;
+    const { gallery, isLoading, isLastPage, isEmpty, error } = this.state;
     return (
       <>
         {isLoading && <Loader />}
@@ -85,6 +98,11 @@ export class ImageGallery extends Component {
             </Gallery>
             {!isLastPage && <LoadMoreButton onClick={this.onLoadMoreClick} />}
           </>
+        )}
+        {isEmpty && <WarningPage text={'There is nothing to show.'} />}
+        {error && (
+          <WarningPage text={`Something went wrong.\n Try again later.`} />
+          // <WarningPage text={error} />
         )}
       </>
     );
