@@ -5,3 +5,5 @@
 5. https://github.com/ai/nanoid#readme
 6. https://www.npmjs.com/package/yup
 7. https://react-icons.github.io/react-icons
+8. https://fkhadra.github.io/react-toastify/introduction/
+9. https://mhnpd.github.io/react-loader-spinner/docs/category/components
