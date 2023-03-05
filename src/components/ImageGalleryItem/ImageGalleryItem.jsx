@@ -23,4 +23,5 @@ ImageGalleryItem.propTypes = {
       tags: PropTypes.string.isRequired,
     })
   ),
+  onSelectModalImage: PropTypes.func.isRequired,
 };

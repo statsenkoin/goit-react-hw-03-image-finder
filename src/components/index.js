@@ -6,3 +6,4 @@ export * from './Modal/Modal';
 export * from './LoadMoreButton/LoadMoreButton';
 export * from './Loader/Loader';
 export * from './Toastify/Toastify';
+export * from './WarningPage/WarningPage';
